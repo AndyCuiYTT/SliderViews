@@ -33,6 +33,15 @@ class YTTSliderView: UIView {
             make.height.equalTo(40)
         }
         
+        let divView = UIView()
+        divView.backgroundColor = UIColor.gray
+        addSubview(divView)
+        divView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom)
+            make.height.equalTo(1)
+        }
+        
         scrollView.delegate = self
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false

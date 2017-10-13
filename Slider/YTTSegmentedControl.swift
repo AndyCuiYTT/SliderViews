@@ -36,6 +36,17 @@ public class YTTSegmentedControl: UIView {
                     currentButton = btn
                     currentIndex = newValue
                     delegate?.yttSegmentedControl(self, didSeletItemAt: newValue)
+                    // item 居中
+                    let offset_x = CGFloat(Int(btn.center.x / yttScreenWidth)) * yttScreenWidth
+                    let off_x = btn.center.x - offset_x - yttScreenWidth / 2
+                    var offsetX = offset_x + off_x
+                    if btn.center.x < yttScreenWidth / 2  {
+                        offsetX = 0
+                    }
+                    if offsetX + yttScreenWidth > scrollView.contentSize.width {
+                        offsetX = offsetX - (offsetX + yttScreenWidth - scrollView.contentSize.width)
+                    }
+                    scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
                 }
             }
         }
