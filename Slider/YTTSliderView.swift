@@ -8,9 +8,17 @@
 
 import UIKit
 
-class YTTSliderView: UIView {
+public protocol YTTSliderViewDelegate: class {
+    
+    func yttSliderView(_ sliderView: YTTSliderViewDelegate, didShowPageAt index: Int); 
+    
+}
+
+
+public class YTTSliderView: UIView {
 
     public private(set) var childItems: [(String, UIViewController)] = []
+    public weak var delegate: YTTSliderViewDelegate?
     fileprivate var headerView: YTTSegmentedControl = YTTSegmentedControl(frame: CGRect.zero, items: [])
     private var contentView: UIView = UIView()
     fileprivate let scrollView = UIScrollView()
@@ -20,7 +28,7 @@ class YTTSliderView: UIView {
         setupSubViews()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -58,7 +66,7 @@ class YTTSliderView: UIView {
         }
     }
     
-    func ytt_addChildControllers(_ childItems: [(String, UIViewController)]) {
+    public func addChildControllers(_ childItems: [(String, UIViewController)]) {
         
         guard (self.superview != nil) else {
             assertionFailure("SlideScrollView 没有 superview")
@@ -97,13 +105,13 @@ class YTTSliderView: UIView {
 }
 
 extension YTTSliderView: YTTSegmentedDelegate {
-    func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int) {
+    public func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int) {
         scrollView.setContentOffset(CGPoint(x: yttScreenWidth * CGFloat(index), y: 0), animated: true)
     }
 }
 
 extension YTTSliderView: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         headerView.isSelectedIndex = Int(scrollView.contentOffset.x / yttScreenWidth)
     }
 }

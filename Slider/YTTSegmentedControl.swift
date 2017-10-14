@@ -21,7 +21,7 @@ public protocol YTTSegmentedDelegate: class {
 }
 
 extension YTTSegmentedDelegate {
-    func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton {
+    public func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton {
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.darkText, for: .normal)
         button.setTitleColor(UIColor.blue, for: .selected)
@@ -102,6 +102,16 @@ public class YTTSegmentedControl: UIView {
     }
     
     private func addItems(items: [String]) {
+        
+        guard superview != nil else {
+            assertionFailure("SegmentedControl 没有 superView")
+            return
+        }
+        
+        guard items.count >= 1 else {
+            assertionFailure("SegmentedControl 必须有一个或多个 item")
+            return
+        }
         
         mainView.subviews.forEach { (view) in
             view.removeFromSuperview()

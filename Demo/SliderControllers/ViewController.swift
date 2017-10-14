@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let vc8 = UIViewController()
         vc8.view.backgroundColor = UIColor.orange
         
-        sliderView.ytt_addChildControllers([("测试1",vc1),("测试2",vc2),("测试3",vc3),("测试4",vc4),("测试5",vc5),("测试6",vc6),("测试7",vc7),("测试8",vc8)])
+        sliderView.addChildControllers([("测试1",vc1),("测试2",vc2),("测试3",vc3),("测试4",vc4),("测试5",vc5),("测试6",vc6),("测试7",vc7),("测试8",vc8)])
     
     }
 
