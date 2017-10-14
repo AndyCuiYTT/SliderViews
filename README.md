@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/language-swift-green.svg) [![CRAN](https://img.shields.io/cocoapods/l/SliderViews.svg)]() ![](https://img.shields.io/cocoapods/v/SliderViews.svg) [![](https://img.shields.io/badge/blog-AndyCui.top-yellowgreen.svg)](http://andycui.top)
 # 简介
 
-![](resource/sliderview-01.jpg)
+![](Resource/sliderview-01.jpg)
 
 SliderViews 简单易用的滑动标签工具,『标签栏工具』可单独使用.
 
@@ -17,7 +17,7 @@ pod 'SliderViews'
 
 ## SliderView 使用
 
-![](resource/sliderview-02.gif)
+![](Resource/sliderview-02.gif)
 
 ```swift
 override func viewDidLoad() {
