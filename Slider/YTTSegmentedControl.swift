@@ -82,7 +82,6 @@ public class YTTSegmentedControl: UIView {
         super.init(frame: frame)
         self.titles = items
         self.setupSubViews()
-        self.addItems(items: items)
     }
     
     func setupSubViews() {

@@ -13,15 +13,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.navigationItem.title = "测试"
         
         let sliderView = YTTSliderView()
         view.addSubview(sliderView)
         sliderView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
-        
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor.cyan
         
@@ -29,13 +27,13 @@ class ViewController: UIViewController {
         vc2.view.backgroundColor = UIColor.orange
         
         let vc3 = UIViewController()
-        vc3.view.backgroundColor = UIColor.cyan
+        vc3.view.backgroundColor = UIColor.blue
         
         let vc4 = UIViewController()
-        vc4.view.backgroundColor = UIColor.orange
+        vc4.view.backgroundColor = UIColor.brown
         
         let vc5 = UIViewController()
-        vc5.view.backgroundColor = UIColor.cyan
+        vc5.view.backgroundColor = UIColor.yellow
         
         let vc6 = UIViewController()
         vc6.view.backgroundColor = UIColor.orange
