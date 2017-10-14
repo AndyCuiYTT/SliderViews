@@ -15,7 +15,19 @@ let yttScreenWidth = UIScreen.main.bounds.width
 public protocol YTTSegmentedDelegate: class {
     
     func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int);
+    
+    func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton;
+    
+}
 
+extension YTTSegmentedDelegate {
+    func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(UIColor.darkText, for: .normal)
+        button.setTitleColor(UIColor.blue, for: .selected)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        return button
+    }
 }
 
 
@@ -63,6 +75,7 @@ public class YTTSegmentedControl: UIView {
     private var currentIndex: Int = -1
     private var yttItemMinWidth: CGFloat = 50
     private var mainView: UIView = UIView()
+    private let scrollView = UIScrollView()
     weak var delegate: YTTSegmentedDelegate?
     
     init(frame: CGRect, items: [String]) {
@@ -74,7 +87,7 @@ public class YTTSegmentedControl: UIView {
     
     func setupSubViews() {
         
-        let scrollView = UIScrollView()
+        
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor.white
@@ -100,28 +113,24 @@ public class YTTSegmentedControl: UIView {
         }
         
         for i in 0 ..< items.count {
-            let button = UIButton(type: .custom)
-            button.setTitle(items[i], for: .normal)
-            button.setTitleColor(UIColor.darkText, for: .normal)
-            button.setTitleColor(UIColor.blue, for: .selected)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-            button.tag = 101 + i
-            button.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
-            mainView.addSubview(button)
-            button.snp.makeConstraints({ (make) in
-                make.left.equalTo(yttItemMinWidth * CGFloat(i))
-                make.height.centerY.equalToSuperview()
-                make.width.greaterThanOrEqualTo(yttItemMinWidth)
-            })
             
-            if i == items.count - 1 {
+            if let button = delegate?.yttSegmentedControl(self, itemAt: i) {
+                button.setTitle(items[i], for: .normal)
+                button.tag = 101 + i
+                button.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
+                mainView.addSubview(button)
                 button.snp.makeConstraints({ (make) in
-                    make.right.equalToSuperview()
+                    make.left.equalTo(yttItemMinWidth * CGFloat(i))
+                    make.height.centerY.equalToSuperview()
+                    make.width.greaterThanOrEqualTo(yttItemMinWidth)
                 })
+                if i == items.count - 1 {
+                    button.snp.makeConstraints({ (make) in
+                        make.right.equalToSuperview()
+                    })
+                }
             }
-            
         }
-        
     }
     
     @objc func itemClick(_ sender: UIButton) {
@@ -141,5 +150,5 @@ public class YTTSegmentedControl: UIView {
     
     
     
-
+    
 }
