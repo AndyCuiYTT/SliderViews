@@ -66,7 +66,7 @@ public class YTTSliderView: UIView {
         }
     }
     
-    public func addChildControllers(_ childItems: [(String, UIViewController)]) {
+    public func addChildControllers(_ childItems: [(String, UIViewController)], isSelected index: Int = 0) {
         
         guard (self.superview != nil) else {
             assertionFailure("SlideScrollView 没有 superview")
@@ -99,9 +99,13 @@ public class YTTSliderView: UIView {
                 })
             }
         }
-        headerView.isSelectedIndex = 0
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] in
+            self?.headerView.isSelectedIndex = index
+        }
+        
+        
     }
-    
 }
 
 extension YTTSliderView: YTTSegmentedDelegate {

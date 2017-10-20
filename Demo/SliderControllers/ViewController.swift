@@ -9,13 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    let sliderView = YTTSliderView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.title = "测试"
         
-        let sliderView = YTTSliderView()
+        
         view.addSubview(sliderView)
         sliderView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -44,8 +46,23 @@ class ViewController: UIViewController {
         let vc8 = UIViewController()
         vc8.view.backgroundColor = UIColor.orange
         
-        sliderView.addChildControllers([("测试1",vc1),("测试2",vc2),("测试3",vc3),("测试4",vc4),("测试5",vc5),("测试6",vc6),("测试7",vc7),("测试8",vc8)])
+        sliderView.addChildControllers([("测试1",vc1),("测试2",vc2),("测试3",vc3),("测试4",vc4),("测试5",vc5),("测试6",vc6),("测试7",vc7),("测试8",vc8)], isSelected: 3)
+        
+
+        
+        
+        
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        button.backgroundColor = UIColor.cyan
+        button.addTarget(self, action: #selector(test), for: .touchUpInside)
+        self.view.addSubview(button)
+          
+        
     
+    }
+    
+    @objc func test() {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
