@@ -103,8 +103,6 @@ public class YTTSliderView: UIView {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] in
             self?.headerView.isSelectedIndex = index
         }
-        
-        
     }
 }
 
