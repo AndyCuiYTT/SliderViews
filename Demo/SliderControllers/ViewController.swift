@@ -34,7 +34,6 @@ class ViewController: UIViewController {
             make.top.equalTo(segmented.snp.bottom).offset(10)
         }
     
-        
 //
 //        let sliderView = YTTSliderView()
 //        let view1 = UIView()
