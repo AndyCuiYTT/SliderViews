@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let sliderView = YTTSliderView()
+    let sliderView = YTTTabSliderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,17 +46,10 @@ class ViewController: UIViewController {
         let vc8 = UIViewController()
         vc8.view.backgroundColor = UIColor.orange
         
-        sliderView.addChildControllers([("测试1",vc1),("测试2",vc2),("测试3",vc3),("测试4",vc4),("测试5",vc5),("测试6",vc6),("测试7",vc7),("测试8",vc8)], isSelected: 3)
+        sliderView.addSubviews([("测试1",vc1.view),("测试2",vc2.view),("测试3",vc3.view),("测试4",vc4.view),("测试5",vc5.view),("测试6",vc6.view),("测试7",vc7.view),("测试8",vc8.view)], isSelected: 3)
         
 
-        
-        
-        
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        button.backgroundColor = UIColor.cyan
-        button.addTarget(self, action: #selector(test), for: .touchUpInside)
-        self.view.addSubview(button)
+    
           
         
     
@@ -65,21 +58,7 @@ class ViewController: UIViewController {
     @objc func test() {
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let VC = YTTSliderController()
-        VC.yttHeaderItems = ["dd","rrr"]
-        
-        let vc1 = UIViewController()
-        vc1.view.backgroundColor = UIColor.cyan
-        
-        let vc2 = UIViewController()
-        vc2.view.backgroundColor = UIColor.orange
-        
-        VC.yttChildControllers = [vc1, vc2]
-        
-        
-        self.present(VC, animated: true, completion: nil)
-    }
+   
     
     
     override func didReceiveMemoryWarning() {

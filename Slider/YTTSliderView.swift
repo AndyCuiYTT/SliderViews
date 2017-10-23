@@ -10,21 +10,25 @@ import UIKit
 
 public protocol YTTSliderViewDelegate: class {
     
-    func yttSliderView(_ sliderView: YTTSliderViewDelegate, didShowPageAt index: Int); 
+    func yttSliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int); 
     
 }
 
 
 public class YTTSliderView: UIView {
 
-    public private(set) var childItems: [(String, UIViewController)] = []
+    public private(set) var isSelectedIndex: Int = -1
+    public private(set) var childViews: [UIView] = []
     public weak var delegate: YTTSliderViewDelegate?
-    fileprivate var headerView: YTTSegmentedControl = YTTSegmentedControl(frame: CGRect.zero, items: [])
     private var contentView: UIView = UIView()
     fileprivate let scrollView = UIScrollView()
+    private var sliderViewWidth: CGFloat = yttScreenWidth
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)
+        if frame != CGRect.zero {
+            sliderViewWidth = frame.width
+        }
         setupSubViews()
     }
     
@@ -34,30 +38,13 @@ public class YTTSliderView: UIView {
     
     func setupSubViews() {
         
-        headerView.delegate = self
-        addSubview(headerView)
-        headerView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(40)
-        }
-        
-        let divView = UIView()
-        divView.backgroundColor = UIColor.gray
-        addSubview(divView)
-        divView.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom)
-            make.height.equalTo(1)
-        }
-        
         scrollView.delegate = self
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isPagingEnabled = true
         addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
-            make.left.bottom.right.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom).offset(1)
+            make.edges.equalToSuperview()
         }
         
         scrollView.addSubview(contentView)
@@ -66,55 +53,67 @@ public class YTTSliderView: UIView {
         }
     }
     
-    public func addChildControllers(_ childItems: [(String, UIViewController)], isSelected index: Int = 0) {
+    public func setSliderWidth(_ width: CGFloat) {
+        self.sliderViewWidth = width
+    }
+    
+    public func addChildViews(_ childViews: [UIView], isSelected index: Int = 0) {
         
         guard (self.superview != nil) else {
             assertionFailure("SlideScrollView 没有 superview")
             return
         }
-        guard childItems.count >= 1 else {
+        guard childViews.count >= 1 else {
             assertionFailure("SlideScrollView 至少需要一个 childView")
             return
         }
         
-        headerView.titles = childItems.map({ (item) -> String in
-            item.0
-        })
-        
+       
         contentView.subviews.forEach { (subview) in
             subview.removeFromSuperview()
         }
-        self.childItems = childItems
-        for i in 0 ..< childItems.count {
-            contentView.addSubview(childItems[i].1.view)
-            childItems[i].1.view.snp.makeConstraints({ (make) in
+        self.childViews = childViews
+        for i in 0 ..< childViews.count {
+            contentView.addSubview(childViews[i])
+            childViews[i].snp.makeConstraints({ (make) in
                 make.top.bottom.equalToSuperview()
-                make.left.equalTo(yttScreenWidth * CGFloat(i))
-                make.width.equalTo(yttScreenWidth)
+                make.left.equalTo(sliderViewWidth * CGFloat(i))
+                make.width.equalTo(sliderViewWidth)
             })
             
-            if i == childItems.count - 1 {
-                childItems[i].1.view.snp.makeConstraints({ (make) in
+            if i == childViews.count - 1 {
+                childViews[i].snp.makeConstraints({ (make) in
                     make.right.equalToSuperview()
                 })
             }
         }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] in
-            self?.headerView.isSelectedIndex = index
+            self?.isSelectedIndex = index
+            self?.scrollView.setContentOffset(CGPoint(x: (self?.sliderViewWidth)! * CGFloat(index), y: 0), animated: true)
         }
     }
+    
+    public func setSelectedIndex(_ index: Int) {
+        
+        guard index >= 0, index < childViews.count else {
+            assertionFailure("index 必须在 0 ~ childViews.count\(childViews.count)之间")
+            return
+        }
+        isSelectedIndex = index
+        self.scrollView.setContentOffset(CGPoint(x: self.sliderViewWidth * CGFloat(index), y: 0), animated: true)
+    }
+    
 }
 
-extension YTTSliderView: YTTSegmentedDelegate {
-    public func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int) {
-        scrollView.setContentOffset(CGPoint(x: yttScreenWidth * CGFloat(index), y: 0), animated: true)
-    }
-}
 
 extension YTTSliderView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        headerView.isSelectedIndex = Int(scrollView.contentOffset.x / yttScreenWidth)
+        delegate?.yttSliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        delegate?.yttSliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
     }
 }
 

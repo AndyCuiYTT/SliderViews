@@ -39,7 +39,7 @@ public class YTTSegmentedControl: UIView {
         }
         
         set {
-            if currentIndex != newValue && newValue >= 0 && newValue < titles.count {
+            if currentIndex != newValue && newValue >= 0 && newValue < titleItems.count {
                 if currentButton != nil {
                     currentButton?.isSelected = false
                 }
@@ -47,16 +47,15 @@ public class YTTSegmentedControl: UIView {
                     btn.isSelected = true
                     currentButton = btn
                     currentIndex = newValue
-                    delegate?.yttSegmentedControl(self, didSeletItemAt: newValue)
                     // item 居中
-                    let offset_x = CGFloat(Int(btn.center.x / yttScreenWidth)) * yttScreenWidth
-                    let off_x = btn.center.x - offset_x - yttScreenWidth / 2
+                    let offset_x = CGFloat(Int(btn.center.x / segmentedWidth)) * segmentedWidth
+                    let off_x = btn.center.x - offset_x - segmentedWidth / 2
                     var offsetX = offset_x + off_x
-                    if btn.center.x < yttScreenWidth / 2  {
+                    if btn.center.x < segmentedWidth / 2  {
                         offsetX = 0
                     }
-                    if offsetX + yttScreenWidth > scrollView.contentSize.width {
-                        offsetX = offsetX - (offsetX + yttScreenWidth - scrollView.contentSize.width)
+                    if offsetX + segmentedWidth > scrollView.contentSize.width {
+                        offsetX = offsetX - (offsetX + segmentedWidth - scrollView.contentSize.width)
                     }
                     scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
                 }
@@ -64,11 +63,7 @@ public class YTTSegmentedControl: UIView {
         }
     }
     
-    public var titles: [String] = [] {
-        didSet {
-            addItems(items: titles)
-        }
-    }
+    public private(set) var titleItems: [String] = []
     
     
     private var currentButton: UIButton?
@@ -77,15 +72,22 @@ public class YTTSegmentedControl: UIView {
     private var mainView: UIView = UIView()
     private let scrollView = UIScrollView()
     weak var delegate: YTTSegmentedDelegate?
+    private var segmentedWidth: CGFloat = yttScreenWidth
     
-    init(frame: CGRect, items: [String]) {
+    public override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)
-        self.titles = items
+        if frame != CGRect.zero {
+            segmentedWidth = frame.width
+        }
         self.setupSubViews()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     func setupSubViews() {
-        
         
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -100,7 +102,12 @@ public class YTTSegmentedControl: UIView {
         }
     }
     
-    private func addItems(items: [String]) {
+    public func setSegmentedWidth(_ width: CGFloat) {
+        self.segmentedWidth = width
+    }
+    
+    
+    public func addTitleItems(_ items: [String], isSelected index: Int = 0) {
         
         guard superview != nil else {
             assertionFailure("SegmentedControl 没有 superView")
@@ -112,12 +119,14 @@ public class YTTSegmentedControl: UIView {
             return
         }
         
+        self.titleItems = items
+        
         mainView.subviews.forEach { (view) in
             view.removeFromSuperview()
         }
         
         if items.count > 0 {
-            let width = yttScreenWidth / CGFloat(4 > items.count ? items.count : 4)
+            let width = segmentedWidth / CGFloat(4 > items.count ? items.count : 4)
             yttItemMinWidth = yttItemMinWidth > width ? yttItemMinWidth : width
         }
         
@@ -140,24 +149,17 @@ public class YTTSegmentedControl: UIView {
                 }
             }
         }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] in
+            self?.isSelectedIndex = index
+        }
     }
     
     @objc func itemClick(_ sender: UIButton) {
         let index = sender.tag - 101
         isSelectedIndex = index
+        delegate?.yttSegmentedControl(self, didSeletItemAt: isSelectedIndex)
+
     }
-    
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    
-    
-    
-    
     
     
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3B44B4071F90828500BA25D9 /* YTTSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44B4041F90828500BA25D9 /* YTTSegmentedControl.swift */; };
-		3B44B4081F90828500BA25D9 /* YTTSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44B4051F90828500BA25D9 /* YTTSliderController.swift */; };
 		3B44B4091F90828500BA25D9 /* YTTSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44B4061F90828500BA25D9 /* YTTSliderView.swift */; };
 		3B4E7F821F8F635000CF30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E7F811F8F635000CF30F6 /* AppDelegate.swift */; };
 		3B4E7F841F8F635000CF30F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E7F831F8F635000CF30F6 /* ViewController.swift */; };
@@ -17,6 +16,7 @@
 		3B4E7F8C1F8F635000CF30F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E7F8A1F8F635000CF30F6 /* LaunchScreen.storyboard */; };
 		3B4E7F971F8F635000CF30F6 /* SliderControllersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E7F961F8F635000CF30F6 /* SliderControllersTests.swift */; };
 		3B4E7FA21F8F635000CF30F6 /* SliderControllersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E7FA11F8F635000CF30F6 /* SliderControllersUITests.swift */; };
+		3B9ACF021F9D806D007AA06B /* YTTTabSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9ACF011F9D806D007AA06B /* YTTTabSliderView.swift */; };
 		58E16220CB4A08A5A4F731F0 /* Pods_SliderControllers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05754AA33174C8F7E5BABB45 /* Pods_SliderControllers.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,6 @@
 /* Begin PBXFileReference section */
 		05754AA33174C8F7E5BABB45 /* Pods_SliderControllers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SliderControllers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B44B4041F90828500BA25D9 /* YTTSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTTSegmentedControl.swift; sourceTree = "<group>"; };
-		3B44B4051F90828500BA25D9 /* YTTSliderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTTSliderController.swift; sourceTree = "<group>"; };
 		3B44B4061F90828500BA25D9 /* YTTSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTTSliderView.swift; sourceTree = "<group>"; };
 		3B4E7F7E1F8F635000CF30F6 /* SliderControllers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SliderControllers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E7F811F8F635000CF30F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		3B4E7F9D1F8F635000CF30F6 /* SliderControllersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SliderControllersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E7FA11F8F635000CF30F6 /* SliderControllersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderControllersUITests.swift; sourceTree = "<group>"; };
 		3B4E7FA31F8F635000CF30F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B9ACF011F9D806D007AA06B /* YTTTabSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTTTabSliderView.swift; sourceTree = "<group>"; };
 		4075ACBC2276177B2A6F40D5 /* Pods-SliderControllers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SliderControllers.release.xcconfig"; path = "Pods/Target Support Files/Pods-SliderControllers/Pods-SliderControllers.release.xcconfig"; sourceTree = "<group>"; };
 		A6320EE19761E2A543CF4383 /* Pods-SliderControllers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SliderControllers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SliderControllers/Pods-SliderControllers.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,8 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				3B44B4041F90828500BA25D9 /* YTTSegmentedControl.swift */,
-				3B44B4051F90828500BA25D9 /* YTTSliderController.swift */,
 				3B44B4061F90828500BA25D9 /* YTTSliderView.swift */,
+				3B9ACF011F9D806D007AA06B /* YTTTabSliderView.swift */,
 			);
 			name = Slider;
 			path = ../../Slider;
@@ -356,8 +356,8 @@
 				3B4E7F841F8F635000CF30F6 /* ViewController.swift in Sources */,
 				3B44B4071F90828500BA25D9 /* YTTSegmentedControl.swift in Sources */,
 				3B44B4091F90828500BA25D9 /* YTTSliderView.swift in Sources */,
+				3B9ACF021F9D806D007AA06B /* YTTTabSliderView.swift in Sources */,
 				3B4E7F821F8F635000CF30F6 /* AppDelegate.swift in Sources */,
-				3B44B4081F90828500BA25D9 /* YTTSliderController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
