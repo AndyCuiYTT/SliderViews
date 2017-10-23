@@ -66,13 +66,19 @@ public class YTTTabSliderView: UIView {
         }
     }
     
-    func addSubviews(_ item: [(title: String, contentView: UIView)], isSelected index: Int = 0) {
-        
-        headerView.addTitleItems(item.map({ (item) -> String in
+    
+    /// 添加子视图
+    ///
+    /// - Parameters:
+    ///   - items: 要显示视图列表, item 为元组, title 为对应的 header 字段, contentView 与 title 对应的显示视图
+    ///   - index: 初始选中位置
+    public func addSubviews(_ items: [(title: String, contentView: UIView)], isSelected index: Int = 0) {
+        childItems = items
+        headerView.addTitleItems(items.map({ (item) -> String in
             return item.title
         }), isSelected: index)
         
-        contentView.addChildViews(item.map({ (item) -> UIView in
+        contentView.addChildViews(items.map({ (item) -> UIView in
             return item.contentView
         }), isSelected: index)
         

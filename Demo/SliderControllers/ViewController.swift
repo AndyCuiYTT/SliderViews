@@ -10,54 +10,59 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let sliderView = YTTTabSliderView()
+    private var label = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "测试"
+        self.navigationItem.title = "SliderViews"
+
         
-        
-        view.addSubview(sliderView)
-        sliderView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        let segmented = YTTSegmentedControl()
+        segmented.delegate = self // 必须设置 实现 YTTSegmentedDelegate
+        segmented.addTitleItems(["SliderView1","SliderView2","SliderView3"], isSelected: 1)
+        segmented.backgroundColor = UIColor.cyan
+        self.view.addSubview(segmented)
+        segmented.snp.makeConstraints { (make) in
+            make.left.right.top.equalToSuperview()
+            make.height.equalTo(50)
         }
-        let vc1 = UIViewController()
-        vc1.view.backgroundColor = UIColor.cyan
         
-        let vc2 = UIViewController()
-        vc2.view.backgroundColor = UIColor.orange
-        
-        let vc3 = UIViewController()
-        vc3.view.backgroundColor = UIColor.blue
-        
-        let vc4 = UIViewController()
-        vc4.view.backgroundColor = UIColor.brown
-        
-        let vc5 = UIViewController()
-        vc5.view.backgroundColor = UIColor.yellow
-        
-        let vc6 = UIViewController()
-        vc6.view.backgroundColor = UIColor.orange
-        
-        let vc7 = UIViewController()
-        vc7.view.backgroundColor = UIColor.cyan
-        
-        let vc8 = UIViewController()
-        vc8.view.backgroundColor = UIColor.orange
-        
-        sliderView.addSubviews([("测试1",vc1.view),("测试2",vc2.view),("测试3",vc3.view),("测试4",vc4.view),("测试5",vc5.view),("测试6",vc6.view),("测试7",vc7.view),("测试8",vc8.view)], isSelected: 3)
-        
-
+        self.view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(segmented.snp.bottom).offset(10)
+        }
     
-          
+        
+//
+//        let sliderView = YTTSliderView()
+//        let view1 = UIView()
+//        view1.backgroundColor = UIColor.cyan
+//        let view2 = UIView()
+//        view2.backgroundColor = UIColor.orange
+//        let view3 = UIView()
+//        view3.backgroundColor = UIColor.blue
+//        sliderView.addChildViews([view1, view2, view3], isSelected: 1)
+//        self.view.addSubview(sliderView)
+//        sliderView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
+        
+        
+        
+        
+//        let tabSliderView = YTTTabSliderView()
+//        tabSliderView.addSubviews([("SliderView1",view1),("SliderView2",view2),("SliderView3",view3)])
+//        view.addSubview(tabSliderView)
+//        tabSliderView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
     
     }
     
-    @objc func test() {
-    }
-
+  
    
     
     
@@ -67,5 +72,13 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+extension ViewController: YTTSegmentedDelegate {
+    public func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int) {
+        label.text = "当前点击 index 为:\(index)"
+    }
+    
+    
 }
 

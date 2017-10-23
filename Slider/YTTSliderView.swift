@@ -10,7 +10,13 @@ import UIKit
 
 public protocol YTTSliderViewDelegate: class {
     
-    func yttSliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int); 
+    
+    /// 当前显示视图位置
+    ///
+    /// - Parameters:
+    ///   - sliderView: 当前视图
+    ///   - index: 选中位置
+    func yttSliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int);
     
 }
 
@@ -57,12 +63,14 @@ public class YTTSliderView: UIView {
         self.sliderViewWidth = width
     }
     
+    
+    /// 添加子视图
+    ///
+    /// - Parameters:
+    ///   - childViews: 子视图数组
+    ///   - index: 初始选中位置
     public func addChildViews(_ childViews: [UIView], isSelected index: Int = 0) {
         
-        guard (self.superview != nil) else {
-            assertionFailure("SlideScrollView 没有 superview")
-            return
-        }
         guard childViews.count >= 1 else {
             assertionFailure("SlideScrollView 至少需要一个 childView")
             return

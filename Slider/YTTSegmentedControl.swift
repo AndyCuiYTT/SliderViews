@@ -12,22 +12,22 @@ import SnapKit
 let yttScreenWidth = UIScreen.main.bounds.width
 
 
-public protocol YTTSegmentedDelegate: class {
+@objc public protocol YTTSegmentedDelegate: class {
     
+    /// item 选中回调
+    ///
+    /// - Parameters:
+    ///   - segment: 当前视图
+    ///   - index: 选中位置
     func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int);
     
-    func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton;
+    /// 自定义 item 样式回调
+    ///
+    /// - Parameters:
+    ///   - segment: 当前视图
+    ///   - index: 选中位置
+    @objc optional func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton;
     
-}
-
-extension YTTSegmentedDelegate {
-    public func yttSegmentedControl(_ segment: YTTSegmentedControl, itemAt index: Int) -> UIButton {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.darkText, for: .normal)
-        button.setTitleColor(UIColor.blue, for: .selected)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        return button
-    }
 }
 
 
@@ -102,17 +102,18 @@ public class YTTSegmentedControl: UIView {
         }
     }
     
-    public func setSegmentedWidth(_ width: CGFloat) {
+    func setSegmentedWidth(_ width: CGFloat) {
         self.segmentedWidth = width
     }
     
     
+    /// 为 SegmentedControl 添加 title
+    ///
+    /// - Parameters:
+    ///   - items: title 数组
+    ///   - index: 初始选中位置
     public func addTitleItems(_ items: [String], isSelected index: Int = 0) {
         
-        guard superview != nil else {
-            assertionFailure("SegmentedControl 没有 superView")
-            return
-        }
         
         guard items.count >= 1 else {
             assertionFailure("SegmentedControl 必须有一个或多个 item")
@@ -132,7 +133,26 @@ public class YTTSegmentedControl: UIView {
         
         for i in 0 ..< items.count {
             
-            if let button = delegate?.yttSegmentedControl(self, itemAt: i) {
+            if let button = delegate?.yttSegmentedControl?(self, itemAt: i) {
+                button.setTitle(items[i], for: .normal)
+                button.tag = 101 + i
+                button.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
+                mainView.addSubview(button)
+                button.snp.makeConstraints({ (make) in
+                    make.left.equalTo(yttItemMinWidth * CGFloat(i))
+                    make.height.centerY.equalToSuperview()
+                    make.width.greaterThanOrEqualTo(yttItemMinWidth)
+                })
+                if i == items.count - 1 {
+                    button.snp.makeConstraints({ (make) in
+                        make.right.equalToSuperview()
+                    })
+                }
+            }else {
+                let button = UIButton(type: .custom)
+                button.setTitleColor(UIColor.darkText, for: .normal)
+                button.setTitleColor(UIColor.blue, for: .selected)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
                 button.setTitle(items[i], for: .normal)
                 button.tag = 101 + i
                 button.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
