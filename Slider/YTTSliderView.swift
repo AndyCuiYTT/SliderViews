@@ -16,7 +16,7 @@ public protocol YTTSliderViewDelegate: class {
     /// - Parameters:
     ///   - sliderView: 当前视图
     ///   - index: 选中位置
-    func yttSliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int);
+    func sliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int);
     
 }
 
@@ -28,7 +28,7 @@ public class YTTSliderView: UIView {
     public weak var delegate: YTTSliderViewDelegate?
     private var contentView: UIView = UIView()
     fileprivate let scrollView = UIScrollView()
-    private var sliderViewWidth: CGFloat = yttScreenWidth
+    private var sliderViewWidth: CGFloat = screenWidth
     
     override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)
@@ -59,9 +59,6 @@ public class YTTSliderView: UIView {
         }
     }
     
-    public func setSliderWidth(_ width: CGFloat) {
-        self.sliderViewWidth = width
-    }
     
     
     /// 添加子视图
@@ -112,16 +109,21 @@ public class YTTSliderView: UIView {
         self.scrollView.setContentOffset(CGPoint(x: self.sliderViewWidth * CGFloat(index), y: 0), animated: true)
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        self.sliderViewWidth = self.bounds.width
+    }
+    
 }
 
 
 extension YTTSliderView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        delegate?.yttSliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
+        delegate?.sliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        delegate?.yttSliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
+        delegate?.sliderView(self, didShowPageAt: Int(scrollView.contentOffset.x / sliderViewWidth))
     }
 }
 

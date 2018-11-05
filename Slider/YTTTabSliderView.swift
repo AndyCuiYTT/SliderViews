@@ -18,17 +18,15 @@ public protocol YTTTabSliderViewDelegate: class {
 
 public class YTTTabSliderView: UIView {
     
-    private var headerView: YTTSegmentedControl = YTTSegmentedControl()
+    private var headerView: YTTSegmentedView = YTTSegmentedView()
     public private(set) var childItems: [(String, UIView)] = []
     private var contentView: YTTSliderView = YTTSliderView()
-    private var tabSliderViewWidth: CGFloat = yttScreenWidth
+    private var tabSliderViewWidth: CGFloat = screenWidth
     
     public override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)
         if frame != CGRect.zero {
             tabSliderViewWidth = frame.width
-            headerView.setSegmentedWidth(tabSliderViewWidth)
-            contentView.setSliderWidth(tabSliderViewWidth)
         }
         
         setupSubViews()
@@ -81,26 +79,19 @@ public class YTTTabSliderView: UIView {
         contentView.addChildViews(items.map({ (item) -> UIView in
             return item.contentView
         }), isSelected: index)
-        
-       
-        
     }
     
 
 }
 
-extension YTTTabSliderView: YTTSegmentedDelegate {
-    public func yttSegmentedControl(_ segment: YTTSegmentedControl, didSeletItemAt index: Int) {
+extension YTTTabSliderView: YTTSegmentedViewDelegate {
+    public func segmentedView(_ segmentView: YTTSegmentedView, didSelectItemAt index: Int) {
         contentView.setSelectedIndex(index)
     }
-    
-    
 }
 
 extension YTTTabSliderView: YTTSliderViewDelegate {
-    public func yttSliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int) {
-        headerView.isSelectedIndex = index
+    public func sliderView(_ sliderView: YTTSliderView, didShowPageAt index: Int) {
+        headerView.setSelectedIndex(index)
     }
-    
-    
 }

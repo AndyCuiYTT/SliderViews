@@ -14,9 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // 设置 window 视图
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
@@ -24,17 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav = UINavigationController(rootViewController: ViewController())
         
         nav.navigationBar.isTranslucent = false
-        nav.navigationBar.barTintColor = UIColor(displayP3Red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        if #available(iOS 10.0, *) {
+            nav.navigationBar.barTintColor = UIColor(displayP3Red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        } else {
+            // Fallback on earlier versions
+            nav.navigationBar.barTintColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        }
         
         window?.rootViewController = nav
         
-        
-        
-        
-        
-        
         return true
     }
+    
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
