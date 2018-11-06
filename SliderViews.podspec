@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SliderViews"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "Simple and easy to use tools of slide tab / 简单易用的滑动标签栏工具."
 
   # This description is used to generate tags and improve search results.
@@ -131,6 +131,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "SnapKit", "~> 4.0.0"
+  s.dependency "SnapKit", "~> 4.0.1"
 
 end
