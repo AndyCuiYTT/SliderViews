@@ -1,6 +1,6 @@
 # SliderViews
 
-![Build Status](https://travis-ci.org/AndyCuiYTT/SliderViews.svg?branch=master)![](https://img.shields.io/badge/language-swift-green.svg) [![CRAN](https://img.shields.io/cocoapods/l/SliderViews.svg)]() ![](https://img.shields.io/cocoapods/v/SliderViews.svg) [![](https://img.shields.io/badge/blog-AndyCuiの博客-yellowgreen.svg)](http://andycui.top)
+![Build Status](https://travis-ci.org/AndyCuiYTT/SliderViews.svg?branch=master) ![](https://img.shields.io/badge/language-swift-green.svg) [![CRAN](https://img.shields.io/cocoapods/l/SliderViews.svg)]() ![](https://img.shields.io/cocoapods/v/SliderViews.svg) [![](https://img.shields.io/badge/blog-AndyCuiの博客-yellowgreen.svg)](http://andycui.top)
 # 简介
 
 SliderViews 简单易用的滑动标签工具,『标签栏工具』『滑动视图工具』可单独使用.
