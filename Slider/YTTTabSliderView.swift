@@ -71,6 +71,9 @@ public class YTTTabSliderView: UIView {
     ///   - items: 要显示视图列表, item 为元组, title 为对应的 header 字段, contentView 与 title 对应的显示视图
     ///   - index: 初始选中位置
     public func addSubviews(_ items: [(title: String, contentView: UIView)], isSelected index: Int = 0) {
+        if items.count < 0 {
+            assertionFailure("请确保至少有一个子视图")
+        }
         childItems = items
         headerView.addTitleItems(items.map({ (item) -> String in
             return item.title
@@ -86,7 +89,7 @@ public class YTTTabSliderView: UIView {
 
 extension YTTTabSliderView: YTTSegmentedViewDelegate {
     public func segmentedView(_ segmentView: YTTSegmentedView, didSelectItemAt index: Int) {
-        contentView.setSelectedIndex(index)
+        contentView.showPage(index)
     }
 }
 

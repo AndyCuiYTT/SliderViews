@@ -154,13 +154,13 @@ public class YTTSegmentedView: UIView {
                 button.addTarget(self, action: #selector(itemClick(_:)), for: .touchUpInside)
                 mainView.addSubview(button)
                 button.snp.makeConstraints({ (make) in
-                    make.left.equalTo(lastItem == nil ? mainView.snp.left : lastItem!.snp.right).offset(5)
+                    make.left.equalTo(lastItem == nil ? mainView.snp.left : lastItem!.snp.right)
                     make.height.centerY.equalToSuperview()
                     make.width.greaterThanOrEqualTo(itemMinWidth)
                 })
                 if i == items.count - 1 {
                     button.snp.makeConstraints({ (make) in
-                        make.right.equalToSuperview().offset(-5)
+                        make.right.equalToSuperview()
                     })
                 }
                 lastItem = button

@@ -23,8 +23,8 @@ public protocol YTTSliderViewDelegate: class {
 
 public class YTTSliderView: UIView {
 
-    public private(set) var isSelectedIndex: Int = -1
-    public private(set) var childViews: [UIView] = []
+    private private(set) var isSelectedIndex: Int = -1
+    private private(set) var childViews: [UIView] = []
     public weak var delegate: YTTSliderViewDelegate?
     private var contentView: UIView = UIView()
     fileprivate let scrollView = UIScrollView()
@@ -94,12 +94,11 @@ public class YTTSliderView: UIView {
         }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] in
-            self?.isSelectedIndex = index
-            self?.scrollView.setContentOffset(CGPoint(x: (self?.sliderViewWidth)! * CGFloat(index), y: 0), animated: true)
+            self?.showPage(index)
         }
     }
     
-    public func setSelectedIndex(_ index: Int) {
+    public func showPage(_ index: Int) {
         
         guard index >= 0, index < childViews.count else {
             assertionFailure("index 必须在 0 ~ childViews.count\(childViews.count)之间")

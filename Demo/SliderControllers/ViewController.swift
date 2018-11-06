@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         
         
         let tabSliderView = YTTTabSliderView()
-        tabSliderView.addSubviews([("SliderView1",view1),("SliderView2",view2),("SliderView3",view3)])
+        tabSliderView.addSubviews([("View1",view1),("View2",view2),("View3",view3)])
         view.addSubview(tabSliderView)
         tabSliderView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
