@@ -38,7 +38,6 @@ extension YTTSegmentedViewDelegate {
     
 }
 
-let screenWidth = UIScreen.main.bounds.width
 
 public class YTTSegmentedView: UIView {
     
@@ -81,7 +80,7 @@ public class YTTSegmentedView: UIView {
     private var mainView: UIView = UIView()
     private let scrollView = UIScrollView()
     weak var delegate: YTTSegmentedViewDelegate?
-    private var segmentedWidth: CGFloat = screenWidth
+    private var segmentedWidth: CGFloat = UIScreen.main.bounds.width
     private var lastItem: UIButton? // 记录已布局的最后一个 item
     
     public override init(frame: CGRect = CGRect.zero) {
