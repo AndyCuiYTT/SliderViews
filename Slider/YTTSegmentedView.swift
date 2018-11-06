@@ -9,8 +9,6 @@
 import UIKit
 import SnapKit
 
-let screenWidth = UIScreen.main.bounds.width
-
 protocol YTTSegmentedViewDelegate: class {
     
     /// item 选中回调
@@ -40,6 +38,7 @@ extension YTTSegmentedViewDelegate {
     
 }
 
+let screenWidth = UIScreen.main.bounds.width
 
 public class YTTSegmentedView: UIView {
     
