@@ -28,7 +28,7 @@ public class YTTSliderView: UIView {
     public weak var delegate: YTTSliderViewDelegate?
     private var contentView: UIView = UIView()
     fileprivate let scrollView = UIScrollView()
-    private var sliderViewWidth: CGFloat = UIScreen.main.bounds.width
+    private var sliderViewWidth: CGFloat = screenWidth
     
     override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)

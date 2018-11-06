@@ -21,7 +21,7 @@ public class YTTTabSliderView: UIView {
     private var headerView: YTTSegmentedView = YTTSegmentedView()
     public private(set) var childItems: [(String, UIView)] = []
     private var contentView: YTTSliderView = YTTSliderView()
-    private var tabSliderViewWidth: CGFloat = UIScreen.main.bounds.width
+    private var tabSliderViewWidth: CGFloat = screenWidth
     
     public override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)

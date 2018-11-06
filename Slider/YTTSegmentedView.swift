@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 
+let screenWidth = UIScreen.main.bounds.width
+
 protocol YTTSegmentedViewDelegate: class {
     
     /// item 选中回调
@@ -80,7 +82,7 @@ public class YTTSegmentedView: UIView {
     private var mainView: UIView = UIView()
     private let scrollView = UIScrollView()
     weak var delegate: YTTSegmentedViewDelegate?
-    private var segmentedWidth: CGFloat = UIScreen.main.bounds.width
+    private var segmentedWidth: CGFloat = screenWidth
     private var lastItem: UIButton? // 记录已布局的最后一个 item
     
     public override init(frame: CGRect = CGRect.zero) {
